@@ -12,12 +12,18 @@ namespace SortingAlgrorithms
         private Random rnd = new Random();
         private List<string> dataSource;// = new List<string>();
         private BindingList<string> blData;// = new BindingList<string>(dataSource);
+        private int sleepTime = 10;
 
 
         public Form1()
         {
             // Initializing stuff. Listbox and dataconnections as well. 
             InitializeComponent();
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
+            this.DoubleBuffered = true;
+            trackBar1.Value = sleepTime;
+            trackBarLabel.Text = sleepTime + " ms";
+
             dataSource = new List<string>();
             blData = new BindingList<string>(dataSource);
             listBox1.DataSource = blData;
@@ -59,6 +65,12 @@ namespace SortingAlgrorithms
          */
         private void swap(int indexA, int indexB, BindingList<string> data)
         {
+            if (sleepTime > 0)
+            {
+                System.Threading.Thread.Sleep(sleepTime);
+                listBox1.Refresh();
+            }
+
             if (indexA < blData.Count && indexB < blData.Count)
             {
                 string temp = blData[indexA];
@@ -79,7 +91,6 @@ namespace SortingAlgrorithms
             }
             return retVal;
         }
-
 
         /*
          * Quicksort. Or at least, an attempt at one. 
@@ -112,22 +123,74 @@ namespace SortingAlgrorithms
             return i;
         }
 
+
+        /*
+         * Heapsort. Or a brave attempt, atleast. 
+         * 
+         */
+        private void heapSort(BindingList<string> data, int count)
+        {
+            heapify(data, count);
+            int end = count - 1;
+            while (end > 0)
+            {
+                swap(end, 0, data);
+                end--;
+                siftDown(data, 0, end);
+            }
+        }
+        // needed for heapsort. 
+        private void heapify(BindingList<string> data, int count)
+        {
+            int start = (int)Math.Floor( (((double)count - 2) / 2) );
+            while (start >= 0)
+            {
+                siftDown(data, start, count - 1);
+                start--;
+            }
+        }
+        // needed for heapsort. 
+        private void siftDown(BindingList<string> data, int start, int end)
+        {
+            int root = start;
+            while ( (root*2+1)  <=  end)
+            {
+                int child = root * 2 + 1;
+                int swapNumber = root;
+
+                if (data[swapNumber].Length < data[child].Length)
+                                swapNumber = child;
+                if ((child + 1 <= end) && (data[swapNumber].Length < data[child + 1].Length))
+                                 swapNumber = child + 1;
+                
+                if (swapNumber == root)
+                {
+                    return;
+                }
+                else
+                {
+                    swap(root, swapNumber, data);
+                    root = swapNumber;
+                }
+            }
+        }
+
+
         #endregion
 
 
         /*
-         * All eventhandlers for button and suchs
+         * All eventhandlers for button and suchs 
          */
         #region Eventhandlers
 
         /*
          * handler for scambleListButton
-         * Scrambles list. Sort of....
+         * Scrambles list......sort of....
          */
         private void scrambleListButton_Click(object sender, EventArgs e)
         {
             listScrambler();
-            timeLabel.Text = "Time Elapsed: ";
         }
 
         // Duuuh. 
@@ -136,19 +199,40 @@ namespace SortingAlgrorithms
             Application.Exit();
         }
 
-
+         // Quicksort-button. 
         private void quickSortButton_Click(object sender, EventArgs e)
         {
             Stopwatch timer = new Stopwatch();
             timer.Start();
 
             quickSort(blData, 0, blData.Count - 1);
+            
             timer.Stop();
-            timeLabel.Text = "Time elapsed: " + timer.ElapsedMilliseconds + " ms";
+            quickSortTimeLabel.Text = "Time elapsed: " + timer.ElapsedMilliseconds + " ms";
+        }
+
+        // Heapsort-button
+        private void heapSortButton_Click(object sender, EventArgs e)
+        {
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+            heapSort(blData, blData.Count);
+            timer.Stop();
+            heapSortTimeLabel.Text = "Time elapsed: " + timer.ElapsedMilliseconds + " ms";
         }
 
 
+        // trackbar to control sleep-time
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            sleepTime = trackBar1.Value;
+            trackBarLabel.Text = trackBar1.Value + " ms";
+        }
+
         #endregion
+
+
+
 
 
     }
