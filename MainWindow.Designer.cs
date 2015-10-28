@@ -32,7 +32,7 @@
             this.quitButton = new System.Windows.Forms.Button();
             this.quickSortButton = new System.Windows.Forms.Button();
             this.quickSortTimeLabel = new System.Windows.Forms.Label();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.speedTrackBar = new System.Windows.Forms.TrackBar();
             this.trackBarLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.heapSortTimeLabel = new System.Windows.Forms.Label();
@@ -47,25 +47,32 @@
             this.fewUniqueButton = new System.Windows.Forms.Button();
             this.almostSortedButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.shakerSortTimeLabel = new System.Windows.Forms.Label();
+            this.shakerSortButton = new System.Windows.Forms.Button();
             this.shellSortTimeLabel = new System.Windows.Forms.Label();
             this.shellSortButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.listSizeLabel = new System.Windows.Forms.Label();
+            this.listSizeTrackBar = new System.Windows.Forms.TrackBar();
+            this.label2 = new System.Windows.Forms.Label();
             this.doAllButton = new System.Windows.Forms.Button();
             this.radioAlmost = new System.Windows.Forms.RadioButton();
             this.radioFewUnique = new System.Windows.Forms.RadioButton();
             this.radioReversed = new System.Windows.Forms.RadioButton();
             this.radioRandom = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.listBox1 = new SortingAlgrorithms.FlickerFreeListBox();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.sortingListBox = new SortingAlgrorithms.FlickerFreeListBox();
+            ((System.ComponentModel.ISupportInitialize)(this.speedTrackBar)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.listSizeTrackBar)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // scrambleListButton
             // 
-            this.scrambleListButton.Location = new System.Drawing.Point(6, 109);
+            this.scrambleListButton.Location = new System.Drawing.Point(6, 103);
             this.scrambleListButton.Name = "scrambleListButton";
             this.scrambleListButton.Size = new System.Drawing.Size(73, 23);
             this.scrambleListButton.TabIndex = 1;
@@ -75,7 +82,7 @@
             // 
             // quitButton
             // 
-            this.quitButton.Location = new System.Drawing.Point(12, 508);
+            this.quitButton.Location = new System.Drawing.Point(12, 529);
             this.quitButton.Name = "quitButton";
             this.quitButton.Size = new System.Drawing.Size(102, 23);
             this.quitButton.TabIndex = 2;
@@ -102,17 +109,17 @@
             this.quickSortTimeLabel.TabIndex = 4;
             this.quickSortTimeLabel.Text = "Time Elapsed:";
             // 
-            // trackBar1
+            // speedTrackBar
             // 
-            this.trackBar1.Location = new System.Drawing.Point(6, 34);
-            this.trackBar1.Maximum = 25;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(89, 45);
-            this.trackBar1.SmallChange = 2;
-            this.trackBar1.TabIndex = 10;
-            this.trackBar1.TickFrequency = 2;
-            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            this.speedTrackBar.Location = new System.Drawing.Point(6, 34);
+            this.speedTrackBar.Maximum = 25;
+            this.speedTrackBar.Name = "speedTrackBar";
+            this.speedTrackBar.Size = new System.Drawing.Size(89, 45);
+            this.speedTrackBar.SmallChange = 2;
+            this.speedTrackBar.TabIndex = 10;
+            this.speedTrackBar.TickFrequency = 2;
+            this.speedTrackBar.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.speedTrackBar.Scroll += new System.EventHandler(this.speedTrackBar_Scroll);
             // 
             // trackBarLabel
             // 
@@ -210,7 +217,7 @@
             // 
             // reversedListButton
             // 
-            this.reversedListButton.Location = new System.Drawing.Point(85, 109);
+            this.reversedListButton.Location = new System.Drawing.Point(85, 103);
             this.reversedListButton.Name = "reversedListButton";
             this.reversedListButton.Size = new System.Drawing.Size(73, 23);
             this.reversedListButton.TabIndex = 20;
@@ -220,7 +227,7 @@
             // 
             // fewUniqueButton
             // 
-            this.fewUniqueButton.Location = new System.Drawing.Point(6, 138);
+            this.fewUniqueButton.Location = new System.Drawing.Point(6, 132);
             this.fewUniqueButton.Name = "fewUniqueButton";
             this.fewUniqueButton.Size = new System.Drawing.Size(73, 23);
             this.fewUniqueButton.TabIndex = 21;
@@ -230,7 +237,7 @@
             // 
             // almostSortedButton
             // 
-            this.almostSortedButton.Location = new System.Drawing.Point(85, 138);
+            this.almostSortedButton.Location = new System.Drawing.Point(85, 132);
             this.almostSortedButton.Name = "almostSortedButton";
             this.almostSortedButton.Size = new System.Drawing.Size(73, 23);
             this.almostSortedButton.TabIndex = 22;
@@ -240,6 +247,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.shakerSortTimeLabel);
+            this.groupBox1.Controls.Add(this.shakerSortButton);
             this.groupBox1.Controls.Add(this.shellSortTimeLabel);
             this.groupBox1.Controls.Add(this.shellSortButton);
             this.groupBox1.Controls.Add(this.quickSortButton);
@@ -252,12 +261,31 @@
             this.groupBox1.Controls.Add(this.bubbleSortTimeLabel);
             this.groupBox1.Controls.Add(this.insertionSortButton);
             this.groupBox1.Controls.Add(this.insertionSortTimeLabel);
-            this.groupBox1.Location = new System.Drawing.Point(279, 315);
+            this.groupBox1.Location = new System.Drawing.Point(279, 318);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(242, 204);
+            this.groupBox1.Size = new System.Drawing.Size(224, 234);
             this.groupBox1.TabIndex = 23;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Available algorithms";
+            this.groupBox1.Text = "Single Runs";
+            // 
+            // shakerSortTimeLabel
+            // 
+            this.shakerSortTimeLabel.AutoSize = true;
+            this.shakerSortTimeLabel.Location = new System.Drawing.Point(101, 204);
+            this.shakerSortTimeLabel.Name = "shakerSortTimeLabel";
+            this.shakerSortTimeLabel.Size = new System.Drawing.Size(74, 13);
+            this.shakerSortTimeLabel.TabIndex = 23;
+            this.shakerSortTimeLabel.Text = "Time Elapsed:";
+            // 
+            // shakerSortButton
+            // 
+            this.shakerSortButton.Location = new System.Drawing.Point(6, 199);
+            this.shakerSortButton.Name = "shakerSortButton";
+            this.shakerSortButton.Size = new System.Drawing.Size(89, 23);
+            this.shakerSortButton.TabIndex = 22;
+            this.shakerSortButton.Text = "Shaker  Sort";
+            this.shakerSortButton.UseVisualStyleBackColor = true;
+            this.shakerSortButton.Click += new System.EventHandler(this.mergeSortButton_Click);
             // 
             // shellSortTimeLabel
             // 
@@ -280,12 +308,8 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.doAllButton);
-            this.groupBox2.Controls.Add(this.radioAlmost);
-            this.groupBox2.Controls.Add(this.radioFewUnique);
-            this.groupBox2.Controls.Add(this.radioReversed);
-            this.groupBox2.Controls.Add(this.radioRandom);
-            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.listSizeLabel);
+            this.groupBox2.Controls.Add(this.listSizeTrackBar);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.fewUniqueButton);
             this.groupBox2.Controls.Add(this.scrambleListButton);
@@ -293,19 +317,49 @@
             this.groupBox2.Controls.Add(this.almostSortedButton);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.reversedListButton);
-            this.groupBox2.Controls.Add(this.trackBar1);
+            this.groupBox2.Controls.Add(this.speedTrackBar);
             this.groupBox2.Location = new System.Drawing.Point(279, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(242, 297);
+            this.groupBox2.Size = new System.Drawing.Size(224, 165);
             this.groupBox2.TabIndex = 24;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "List Control";
             // 
+            // listSizeLabel
+            // 
+            this.listSizeLabel.AutoSize = true;
+            this.listSizeLabel.Location = new System.Drawing.Point(104, 17);
+            this.listSizeLabel.Name = "listSizeLabel";
+            this.listSizeLabel.Size = new System.Drawing.Size(49, 13);
+            this.listSizeLabel.TabIndex = 25;
+            this.listSizeLabel.Text = "List Size:";
+            // 
+            // listSizeTrackBar
+            // 
+            this.listSizeTrackBar.Location = new System.Drawing.Point(99, 34);
+            this.listSizeTrackBar.Maximum = 85;
+            this.listSizeTrackBar.Minimum = 10;
+            this.listSizeTrackBar.Name = "listSizeTrackBar";
+            this.listSizeTrackBar.Size = new System.Drawing.Size(110, 45);
+            this.listSizeTrackBar.TabIndex = 24;
+            this.listSizeTrackBar.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.listSizeTrackBar.Value = 10;
+            this.listSizeTrackBar.Scroll += new System.EventHandler(this.listSizeTrackBar_Scroll);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 84);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(81, 13);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "Randomize list: ";
+            // 
             // doAllButton
             // 
-            this.doAllButton.Location = new System.Drawing.Point(156, 245);
+            this.doAllButton.Location = new System.Drawing.Point(150, 12);
             this.doAllButton.Name = "doAllButton";
-            this.doAllButton.Size = new System.Drawing.Size(80, 41);
+            this.doAllButton.Size = new System.Drawing.Size(68, 40);
             this.doAllButton.TabIndex = 29;
             this.doAllButton.Text = "Run on all algorithms!";
             this.doAllButton.UseVisualStyleBackColor = true;
@@ -314,7 +368,7 @@
             // radioAlmost
             // 
             this.radioAlmost.AutoSize = true;
-            this.radioAlmost.Location = new System.Drawing.Point(6, 269);
+            this.radioAlmost.Location = new System.Drawing.Point(9, 107);
             this.radioAlmost.Name = "radioAlmost";
             this.radioAlmost.Size = new System.Drawing.Size(103, 17);
             this.radioAlmost.TabIndex = 28;
@@ -325,7 +379,7 @@
             // radioFewUnique
             // 
             this.radioFewUnique.AutoSize = true;
-            this.radioFewUnique.Location = new System.Drawing.Point(6, 245);
+            this.radioFewUnique.Location = new System.Drawing.Point(9, 83);
             this.radioFewUnique.Name = "radioFewUnique";
             this.radioFewUnique.Size = new System.Drawing.Size(135, 17);
             this.radioFewUnique.TabIndex = 27;
@@ -336,7 +390,7 @@
             // radioReversed
             // 
             this.radioReversed.AutoSize = true;
-            this.radioReversed.Location = new System.Drawing.Point(6, 221);
+            this.radioReversed.Location = new System.Drawing.Point(9, 59);
             this.radioReversed.Name = "radioReversed";
             this.radioReversed.Size = new System.Drawing.Size(86, 17);
             this.radioReversed.TabIndex = 26;
@@ -347,7 +401,7 @@
             // radioRandom
             // 
             this.radioRandom.AutoSize = true;
-            this.radioRandom.Location = new System.Drawing.Point(6, 197);
+            this.radioRandom.Location = new System.Drawing.Point(9, 35);
             this.radioRandom.Name = "radioRandom";
             this.radioRandom.Size = new System.Drawing.Size(99, 17);
             this.radioRandom.TabIndex = 25;
@@ -358,49 +412,59 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 181);
+            this.label3.Location = new System.Drawing.Point(6, 19);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(95, 13);
             this.label3.TabIndex = 24;
             this.label3.Text = "Run algormiths on:";
             // 
-            // label2
+            // groupBox3
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 90);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(81, 13);
-            this.label2.TabIndex = 23;
-            this.label2.Text = "Randomize list: ";
+            this.groupBox3.Controls.Add(this.doAllButton);
+            this.groupBox3.Controls.Add(this.radioRandom);
+            this.groupBox3.Controls.Add(this.radioAlmost);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Controls.Add(this.radioFewUnique);
+            this.groupBox3.Controls.Add(this.radioReversed);
+            this.groupBox3.Location = new System.Drawing.Point(279, 183);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(224, 129);
+            this.groupBox3.TabIndex = 25;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Multiple Runs";
             // 
             // listBox1
             // 
-            this.listBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.listBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 4F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 6;
-            this.listBox1.Location = new System.Drawing.Point(12, 12);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(261, 490);
-            this.listBox1.TabIndex = 0;
+            this.sortingListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.sortingListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 4F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sortingListBox.FormattingEnabled = true;
+            this.sortingListBox.ItemHeight = 6;
+            this.sortingListBox.Location = new System.Drawing.Point(12, 12);
+            this.sortingListBox.Name = "sortingListBox";
+            this.sortingListBox.Size = new System.Drawing.Size(261, 514);
+            this.sortingListBox.TabIndex = 0;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(533, 543);
+            this.ClientSize = new System.Drawing.Size(509, 558);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.quitButton);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.sortingListBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "MainWindow";
             this.Text = "Sorting algorithms visualized";
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.speedTrackBar)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.listSizeTrackBar)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -408,13 +472,13 @@
         #endregion
 
         //private System.Windows.Forms.ListBox listBox1;
-        private FlickerFreeListBox listBox1;
+        private FlickerFreeListBox sortingListBox;
         
         private System.Windows.Forms.Button scrambleListButton;
         private System.Windows.Forms.Button quitButton;
         private System.Windows.Forms.Button quickSortButton;
         private System.Windows.Forms.Label quickSortTimeLabel;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar speedTrackBar;
         private System.Windows.Forms.Label trackBarLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label heapSortTimeLabel;
@@ -439,6 +503,11 @@
         private System.Windows.Forms.Button doAllButton;
         private System.Windows.Forms.Label shellSortTimeLabel;
         private System.Windows.Forms.Button shellSortButton;
+        private System.Windows.Forms.Label shakerSortTimeLabel;
+        private System.Windows.Forms.Button shakerSortButton;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label listSizeLabel;
+        private System.Windows.Forms.TrackBar listSizeTrackBar;
     }
 }
 

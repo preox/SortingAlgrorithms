@@ -4,13 +4,18 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
+
+
+
+
 
 namespace SortingAlgrorithms
 {
     public partial class MainWindow : Form
     {
-        private static int noOfLines = 80;
+        private int noOfLines = 80;
         private List<string> dataSource;
         private BindingList<string> blData;
         private int sleepTime = 2;
@@ -22,14 +27,17 @@ namespace SortingAlgrorithms
         public MainWindow()
         {
             InitializeComponent();
-            trackBar1.Value = sleepTime;
+            speedTrackBar.Value = sleepTime;
             trackBarLabel.Text = sleepTime + " ms";
+
+            listSizeTrackBar.Value = noOfLines;
+            listSizeLabel.Text = "No. of lines: " + noOfLines;
 
             dataSource = new List<string>();
             blData = new BindingList<string>(dataSource);
-            listBox1.DataSource = blData;
+            sortingListBox.DataSource = blData;
 
-            initiateList(listBox1);
+            initiateList( noOfLines);
 
             // TODO. Wonder how this could be done better.....
             availableAlgorithms.Add(new sortingAlgorithm(quickSortStarter));
@@ -38,19 +46,22 @@ namespace SortingAlgrorithms
             availableAlgorithms.Add(new sortingAlgorithm(insertionSort));
             availableAlgorithms.Add(new sortingAlgorithm(bubbleSort));
             availableAlgorithms.Add(new sortingAlgorithm(shellSort));
+            availableAlgorithms.Add(new sortingAlgorithm(shakerSort));
 
         }
 
 
         #region Methods
 
-        private void initiateList(ListBox listBox)
+
+        private void initiateList( int size)
         {
-            for (int i = 1; i < noOfLines + 1; i++)
+            blData.Clear();
+
+            for (int i = 1; i < size + 1; i++)
             {
                 blData.Add(getLine(i));
             }
-            listScrambler();
         }
 
 
@@ -62,7 +73,7 @@ namespace SortingAlgrorithms
             if (sleepTime > 0)
             {
                 System.Threading.Thread.Sleep(sleepTime);
-                listBox1.Refresh();
+                sortingListBox.Refresh();
             }
 
             if (indexA < blData.Count && indexB < blData.Count)
@@ -78,12 +89,13 @@ namespace SortingAlgrorithms
          */
         private string getLine(int length)
         {
-            string retVal = "";
+            StringBuilder stuff = new StringBuilder();
             for (int i = 0; i < length; i++ )
             {
-                retVal += "#";
+                stuff.Append("#");
             }
-            return retVal;
+
+            return stuff.ToString() ;
         }
 
 
@@ -93,7 +105,10 @@ namespace SortingAlgrorithms
          * That is, on a particular type of sorted list. (random/almost/fewunique....)
          * 
          */
-
+        /// <summary>
+        /// Sorts ALL THE things!
+        /// </summary>
+        /// <param name="selectedListUnsorter"></param>
         private void doAllSorting(listUnsorter selectedListUnsorter)
         {
             Cursor.Current = Cursors.WaitCursor; // Set cursor to wait
@@ -108,7 +123,7 @@ namespace SortingAlgrorithms
                 selectedListUnsorter.Invoke();
             }
             
-            sleepTime = tempSleeptime;
+            sleepTime = tempSleeptime; 
             Cursor.Current = Cursors.Default; // Restore cursor
         }
 
@@ -261,7 +276,7 @@ namespace SortingAlgrorithms
                 if (sleepTime > 0)
                 {
                     System.Threading.Thread.Sleep(sleepTime);
-                    listBox1.Refresh();
+                    sortingListBox.Refresh();
                 }
                 data[j] = v;
             }
@@ -317,7 +332,7 @@ namespace SortingAlgrorithms
                     if (sleepTime > 0)
                     {
                         System.Threading.Thread.Sleep(sleepTime);
-                        listBox1.Refresh();
+                        sortingListBox.Refresh();
                     }
                     data[j] = temp;
                     
@@ -333,6 +348,52 @@ namespace SortingAlgrorithms
             shellSortTimeLabel.Text = "Time elapsed: " + timer.ElapsedMilliseconds + " ms";
 
         }
+
+        /*
+         * Shaker sort
+         * 
+         */
+        private void shakerSort(BindingList<string> data)
+        {
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+
+
+            bool swapped;
+            do
+            {
+                swapped = false;
+                for (int i = 0; i <= data.Count - 2; i++)
+                {
+                    if (data[i].Length > data[i + 1].Length)
+                    {
+                        //test whether the two elements are in the wrong order
+                        swap(i, i + 1, data);
+                        swapped = true;
+                    }
+                }
+                if (!swapped)
+                {
+                    //we can exit the outer loop here if no swaps occurred.
+                    break;
+                }
+                swapped = false;
+                for (int i = data.Count - 2; i >= 0; i--)
+                {
+                    if (data[i].Length > data[i + 1].Length)
+                    {
+                        swap(i, i + 1, data);
+                        swapped = true;
+                    }
+                }
+                //if no elements have been swapped, then the list is sorted
+            } while (swapped);
+
+            timer.Stop();
+            shakerSortTimeLabel.Text = "Time elapsed: " + timer.ElapsedMilliseconds + " ms";
+        }
+
+
 
         #endregion
 
@@ -502,13 +563,30 @@ namespace SortingAlgrorithms
 
         }
 
-        // trackbar to control sleep-time
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        // Merge sort button
+        private void mergeSortButton_Click(object sender, EventArgs e)
         {
-            sleepTime = trackBar1.Value;
-            trackBarLabel.Text = trackBar1.Value + " ms";
+            Cursor.Current = Cursors.WaitCursor; // Set cursor to wait
+            shakerSort(blData);
+            Cursor.Current = Cursors.Default; // Restore cursor
         }
-        
+
+        // trackbar to control sleep-time
+        private void speedTrackBar_Scroll(object sender, EventArgs e)
+        {
+            sleepTime = speedTrackBar.Value;
+            trackBarLabel.Text = speedTrackBar.Value + " ms";
+        }
+
+        //trackbarcontrol for list-size trackbar. 
+        private void listSizeTrackBar_Scroll(object sender, EventArgs e)
+        {
+            noOfLines = listSizeTrackBar.Value;
+            listSizeLabel.Text = "No. of lines: " + listSizeTrackBar.Value;
+            initiateList(listSizeTrackBar.Value);
+
+        }
+
 
 
         // Do-all-button. (does one pass for each algorithm on a choosen type of sorted list)
@@ -540,7 +618,12 @@ namespace SortingAlgrorithms
             doAllSorting(randomize);
         }
 
+
         #endregion
+
+
+
+
 
 
     } // end class
